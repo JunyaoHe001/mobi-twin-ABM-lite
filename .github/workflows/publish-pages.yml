@@ -43,7 +43,10 @@ jobs:
             .bootstrap/site/part-05a
             .bootstrap/site/part-05b
             .bootstrap/site/part-05c
-            .bootstrap/site/part-05d
+            .bootstrap/site/part-05d1
+            .bootstrap/site/part-05d2
+            .bootstrap/site/part-05d3
+            .bootstrap/site/part-05d4
             .bootstrap/site/part-06
             .bootstrap/site/part-07
           )
