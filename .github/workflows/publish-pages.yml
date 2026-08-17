@@ -40,7 +40,10 @@ jobs:
             .bootstrap/site/part-02
             .bootstrap/site/part-03
             .bootstrap/site/part-04
-            .bootstrap/site/part-05
+            .bootstrap/site/part-05a
+            .bootstrap/site/part-05b
+            .bootstrap/site/part-05c
+            .bootstrap/site/part-05d
             .bootstrap/site/part-06
             .bootstrap/site/part-07
           )
