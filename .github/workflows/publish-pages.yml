@@ -1,0 +1,158 @@
+name: Publish Regional Mobility ABM Live Lite
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: publish-mobi-twin-abm-lite
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconstruct and validate the public site
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          parts=(
+            .bootstrap/site/part-00
+            .bootstrap/site/part-01
+            .bootstrap/site/part-02
+            .bootstrap/site/part-03
+            .bootstrap/site/part-04
+            .bootstrap/site/part-05
+            .bootstrap/site/part-06
+            .bootstrap/site/part-07
+          )
+
+          for part in "${parts[@]}"; do
+            test -f "$part"
+          done
+
+          cat "${parts[@]}" > /tmp/mobi-site.tar.xz.b64
+          test "$(wc -c < /tmp/mobi-site.tar.xz.b64)" -eq 116412
+          base64 --decode /tmp/mobi-site.tar.xz.b64 > /tmp/mobi-site.tar.xz
+          echo "0d9b9a76c01a745537b115608f369f3a2c114220024278b9477ee092a8089cb0  /tmp/mobi-site.tar.xz" | sha256sum -c -
+          xz -t /tmp/mobi-site.tar.xz
+
+          rm -rf /tmp/mobi-site
+          mkdir -p /tmp/mobi-site
+          tar -xJf /tmp/mobi-site.tar.xz -C /tmp/mobi-site
+
+          required=(
+            /tmp/mobi-site/index.html
+            /tmp/mobi-site/assets/app.js
+            /tmp/mobi-site/assets/styles.css
+            /tmp/mobi-site/data/archetypes.json
+            /tmp/mobi-site/data/exit_profiles.json
+            /tmp/mobi-site/data/destination_profiles.json
+            /tmp/mobi-site/data/model_config.json
+            /tmp/mobi-site/data/regions.geojson
+            /tmp/mobi-site/data/generation_report.json
+          )
+          for file in "${required[@]}"; do
+            test -f "$file"
+          done
+
+          node --check /tmp/mobi-site/assets/app.js
+
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path('/tmp/mobi-site')
+          config = json.loads((root / 'data/model_config.json').read_text(encoding='utf-8'))
+          archetypes = json.loads((root / 'data/archetypes.json').read_text(encoding='utf-8'))
+          exits = json.loads((root / 'data/exit_profiles.json').read_text(encoding='utf-8'))
+          destinations = json.loads((root / 'data/destination_profiles.json').read_text(encoding='utf-8'))
+          regions = json.loads((root / 'data/regions.geojson').read_text(encoding='utf-8'))
+          report = json.loads((root / 'data/generation_report.json').read_text(encoding='utf-8'))
+
+          assert config['project']['title'] == 'Regional Mobility ABM (Central Macedonia) — Live Lite'
+          assert [item['label'] for item in config['scenarios'].values()] == [
+              'Baseline', 'Leapfrog', 'Dark Horse', 'Snailpace', "Lion's Den"
+          ]
+          assert config['defaults']['scenario'] == 'baseline'
+          assert config['defaults']['seed'] == 66
+          assert config['defaults']['agent_count'] == 600
+          assert config['defaults']['duration_months'] == 120
+          assert config['tracks']['NT']['label'] == 'No Transition (NT)'
+          assert config['tracks']['TT']['label'] == 'Twin Transition (TT)'
+
+          assert len(archetypes) == 80
+          assert len(exits) == 10
+          assert len(destinations) == 24
+          assert len(regions['features']) == 38
+
+          assert report['individual_rows_exported'] is False
+          assert report['original_identifiers_exported'] is False
+          assert report['personal_information_exported'] is False
+          assert report['source_row_mapping_exported'] is False
+          assert report['synthetic_agent_points_exposed'] is False
+
+          page = (root / 'index.html').read_text(encoding='utf-8')
+          script = (root / 'assets/app.js').read_text(encoding='utf-8')
+          combined = (page + '\n' + script).lower()
+          assert 'show-agents' not in combined
+          assert 'agent-track' not in combined
+          assert 'agent-dot' not in combined
+          assert 'no transition (nt)' in combined
+          assert 'twin transition (tt)' in combined
+
+          print('Public site structure, defaults, privacy flags, and data counts validated.')
+          PY
+
+          if grep -RniE 'eu_id|match_donor_id|DB030|EL_Samples\.csv|EL_Probs120\.csv|EL_Spatial_Probs' /tmp/mobi-site; then
+            echo 'Sensitive source token found in public site.' >&2
+            exit 1
+          fi
+
+      - name: Replace main branch with the validated public repository
+        shell: bash
+        run: |
+          set -euo pipefail
+          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name .github -exec rm -rf {} +
+          cp -a /tmp/mobi-site/. .
+          rm -rf .bootstrap
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish Regional Mobility ABM Live Lite"
+            git push origin HEAD:main
+          fi
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: /tmp/mobi-site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
