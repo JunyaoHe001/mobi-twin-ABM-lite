@@ -1,0 +1,30 @@
+{
+  "generation_seed": 20260817,
+  "source_rows_processed": 21911,
+  "source_columns_loaded_from_sample_table": 25,
+  "source_sample_columns_total": 873,
+  "raw_unique_exit_profiles": 64,
+  "public_exit_profiles": 10,
+  "raw_unique_destination_profiles": 140,
+  "public_destination_profiles": 24,
+  "public_archetypes": 80,
+  "minimum_internal_source_group_size": 101,
+  "maximum_internal_source_group_size": 904,
+  "minimum_exit_profile_source_size": 634,
+  "minimum_destination_profile_source_size": 183,
+  "public_files_scanned_for_forbidden_tokens": [
+    "archetypes.json",
+    "exit_profiles.json",
+    "destination_profiles.json",
+    "model_config.json",
+    "regions.geojson"
+  ],
+  "forbidden_token_scan_passed": true,
+  "raw_files_copied": false,
+  "individual_rows_exported": false,
+  "formal_differential_privacy_claim": false,
+  "original_identifiers_exported": false,
+  "personal_information_exported": false,
+  "source_row_mapping_exported": false,
+  "synthetic_agent_points_exposed": false
+}

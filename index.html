@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Synthetic-population demonstration example of regional mobility in Central Macedonia." />
+  <meta name="theme-color" content="#f4f6f8" />
+  <title>Regional Mobility ABM (Central Macedonia) — Live Lite</title>
+  <link rel="stylesheet" href="./assets/styles.css" />
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar" aria-label="Simulation controls">
+      <div class="sidebar-inner">
+        <header class="brand">
+          <div class="eyebrow">Interactive research model · Demonstration example</div>
+          <h1>Regional Mobility ABM (Central Macedonia) — Live Lite</h1>
+          <p class="subtitle">Synthetic-population browser demonstration</p>
+          <p class="description">
+            Explore how mobility decisions, transition scenarios, remote work, and social influence accumulate into population change across Central Macedonia.
+          </p>
+          <div class="privacy-note">
+            The browser receives disclosure-reduced synthetic archetypes and aggregate profiles only. No original sample records, personal information, or source identifiers are included.
+          </div>
+          <div id="error-box" role="alert"></div>
+        </header>
+
+        <section class="control-section">
+          <div class="section-title">
+            <h2>Scenario and setup</h2>
+            <span class="value" id="model-status">Ready</span>
+          </div>
+
+          <div class="field">
+            <label for="scenario-select">Macro scenario</label>
+            <select id="scenario-select"></select>
+          </div>
+
+          <div class="two-col">
+            <div class="field">
+              <label for="seed-input">Random seed</label>
+              <input id="seed-input" type="number" min="1" max="999999" step="1" value="66" />
+            </div>
+            <div class="field">
+              <label for="agent-count">Synthetic agents</label>
+              <select id="agent-count">
+                <option value="300">300</option>
+                <option value="600" selected>600</option>
+                <option value="900">900</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="field">
+              <label for="duration-select">Duration</label>
+              <select id="duration-select">
+                <option value="60">60 months</option>
+                <option value="120" selected>120 months</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="speed-select">Run speed</label>
+              <select id="speed-select">
+                <option value="1">1 month/s</option>
+                <option value="4">4 months/s</option>
+                <option value="12" selected>12 months/s</option>
+                <option value="30">30 months/s</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="button-grid">
+            <button id="setup-button" type="button" class="primary">Setup</button>
+            <button id="run-button" type="button">Run</button>
+            <button id="step-button" type="button">Step</button>
+            <button id="reset-button" type="button">Reset</button>
+          </div>
+        </section>
+
+        <section class="control-section">
+          <div class="section-title">
+            <h2>Behaviour</h2>
+            <span class="value">No Transition vs Twin Transition</span>
+          </div>
+
+          <div class="field range-field">
+            <div class="range-head">
+              <label for="transition-strength">Transition strength</label>
+              <span id="transition-strength-value">6.0</span>
+            </div>
+            <input id="transition-strength" type="range" min="0" max="8" step="0.5" value="6" />
+          </div>
+
+          <div class="field range-field">
+            <div class="range-head">
+              <label for="remote-work-strength">Remote-work effect</label>
+              <span id="remote-work-strength-value">1.0</span>
+            </div>
+            <input id="remote-work-strength" type="range" min="0" max="5" step="0.25" value="1" />
+          </div>
+
+          <div class="field range-field">
+            <div class="range-head">
+              <label for="relocation-prob">Internal relocation probability</label>
+              <span id="relocation-prob-value">0.50</span>
+            </div>
+            <input id="relocation-prob" type="range" min="0" max="1" step="0.05" value="0.5" />
+          </div>
+
+          <div class="field range-field">
+            <div class="range-head">
+              <label for="congestion-strength">Congestion penalty</label>
+              <span id="congestion-strength-value">10</span>
+            </div>
+            <input id="congestion-strength" type="range" min="0" max="20" step="1" value="10" />
+          </div>
+
+          <div class="field range-field">
+            <div class="range-head">
+              <label for="friend-strength">Friend influence</label>
+              <span id="friend-strength-value">1.0</span>
+            </div>
+            <input id="friend-strength" type="range" min="0" max="2" step="0.25" value="1" />
+          </div>
+
+          <div class="field range-field">
+            <div class="range-head">
+              <label for="neighbor-strength">Neighbour influence</label>
+              <span id="neighbor-strength-value">1.0</span>
+            </div>
+            <input id="neighbor-strength" type="range" min="0" max="2" step="0.25" value="1" />
+          </div>
+          <p class="coverage">Changed parameters take effect after pressing <strong>Setup</strong>.</p>
+        </section>
+
+        <section class="control-section">
+          <div class="section-title">
+            <h2>Display</h2>
+            <span class="value" id="display-status">Population gap</span>
+          </div>
+
+          <div class="field">
+            <label for="map-indicator">Map indicator</label>
+            <select id="map-indicator">
+              <option value="gap">Twin Transition minus No Transition population difference (%)</option>
+              <option value="tt-change">Twin Transition population change (%)</option>
+              <option value="nt-change">No Transition population change (%)</option>
+              <option value="tt-share">Twin Transition population share</option>
+              <option value="nt-share">No Transition population share</option>
+              <option value="tt-netmig">Twin Transition cumulative net migration</option>
+              <option value="nt-netmig">No Transition cumulative net migration</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="chart-indicator">Trajectory</label>
+            <select id="chart-indicator">
+              <option value="population">Population</option>
+              <option value="netmig">Cumulative net migration</option>
+              <option value="gini">Income Gini</option>
+              <option value="gap">Twin Transition minus No Transition population gap</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="control-section">
+          <div class="section-title">
+            <h2>Output</h2>
+            <span class="value">Aggregates only</span>
+          </div>
+          <button id="download-button" type="button" class="wide-button">Download aggregate CSV</button>
+          <p class="coverage">The download contains national monthly trajectories and the current regional snapshot. It contains no agent-level rows.</p>
+        </section>
+
+        <footer class="footer">
+          <p><strong>Scope:</strong> demonstration example. It illustrates selected model mechanisms with synthetic public inputs; formal findings continue to rely on the private desktop model.</p>
+          <div class="links">
+            <a href="./docs/model-scope.html" target="_blank">Model scope</a>
+            <a href="./docs/privacy-and-disclosure.html" target="_blank">Privacy audit</a>
+            <a href="./data/generation_report.json" target="_blank">Generation report</a>
+            <a href="https://github.com/JunyaoHe001/mobi-twin-ABM-lite" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </footer>
+      </div>
+    </aside>
+
+    <main id="workspace">
+      <button id="mobile-toggle" type="button">Controls</button>
+      <div id="sidebar-scrim" aria-hidden="true"></div>
+
+      <header class="workspace-header">
+        <div>
+          <div class="workspace-eyebrow">Live browser simulation</div>
+          <h2 id="scenario-title">Baseline · No Transition (NT) and Twin Transition (TT)</h2>
+        </div>
+        <div class="summary-grid">
+          <div class="summary-card">
+            <span>Month</span>
+            <strong id="summary-month">0</strong>
+          </div>
+          <div class="summary-card">
+            <span>No Transition (NT)</span>
+            <strong id="summary-nt">—</strong>
+          </div>
+          <div class="summary-card">
+            <span>Twin Transition (TT)</span>
+            <strong id="summary-tt">—</strong>
+          </div>
+          <div class="summary-card">
+            <span>Twin Transition − No Transition</span>
+            <strong id="summary-gap">—</strong>
+          </div>
+        </div>
+      </header>
+
+      <div class="workspace-grid">
+        <section class="panel map-panel">
+          <div class="panel-head">
+            <div>
+              <h3>Regional outcomes</h3>
+              <p id="map-subtitle">Twin Transition minus No Transition population difference at month 0</p>
+            </div>
+            <span class="pill" id="run-pill">Setup complete</span>
+          </div>
+          <div id="map-wrap">
+            <svg id="region-map" viewBox="0 0 760 570" role="img" aria-label="Interactive regional simulation map">
+              <g id="region-layer"></g>
+            </svg>
+            <div id="map-tooltip" role="tooltip"></div>
+            <div class="map-legend">
+              <div class="legend-bar" id="legend-bar"></div>
+              <div class="legend-labels"><span id="legend-min">—</span><span id="legend-mid">0</span><span id="legend-max">—</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel chart-panel">
+          <div class="panel-head">
+            <div>
+              <h3 id="chart-title">Population trajectory</h3>
+              <p>No Transition (NT) and Twin Transition (TT) are simulated from the same synthetic initial population.</p>
+            </div>
+            <div class="chart-legend" id="chart-legend"></div>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="trajectory-chart" aria-label="Simulation trajectory chart"></canvas>
+          </div>
+          <div class="event-strip">
+            <div><span>Internal moves this month</span><strong id="event-moves">0</strong></div>
+            <div><span>Out-migration this month</span><strong id="event-out">0</strong></div>
+            <div><span>Inflow this month</span><strong id="event-in">0</strong></div>
+            <div><span>Deaths this month</span><strong id="event-deaths">0</strong></div>
+          </div>
+        </section>
+      </div>
+
+      <div id="loading">
+        <div class="loading-card">
+          <div class="spinner"></div>
+          <strong>Preparing demonstration example</strong>
+          <span id="loading-text">Loading public inputs…</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="./assets/app.js" defer></script>
+</body>
+</html>

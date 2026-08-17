@@ -1,0 +1,696 @@
+{
+  "project": {
+    "title": "Regional Mobility ABM (Central Macedonia) — Live Lite",
+    "subtitle": "Synthetic-population browser demonstration example",
+    "version": "1.0.0",
+    "status": "Published demonstration example",
+    "scope": "A browser-based demonstration of selected residential mobility, transition, population change, and social-influence mechanisms for Central Macedonia."
+  },
+  "data": {
+    "regions": 38,
+    "archetypes": 80,
+    "exit_profiles": 10,
+    "destination_profiles": 24,
+    "minimum_source_group_size": 100,
+    "individual_records_included": false,
+    "original_identifiers_included": false
+  },
+  "questions": [
+    {
+      "id": "q35",
+      "group": "Digital",
+      "weight": 0.0696,
+      "label": "Digital behaviour indicator 1"
+    },
+    {
+      "id": "q38",
+      "group": "Digital",
+      "weight": 0.0648,
+      "label": "Digital behaviour indicator 2"
+    },
+    {
+      "id": "q45",
+      "group": "Digital",
+      "weight": 0.0439,
+      "label": "Digital behaviour indicator 3"
+    },
+    {
+      "id": "q47",
+      "group": "Digital",
+      "weight": 0.039,
+      "label": "Digital behaviour indicator 4"
+    },
+    {
+      "id": "q48",
+      "group": "Digital",
+      "weight": 0.0383,
+      "label": "Digital behaviour indicator 5"
+    },
+    {
+      "id": "q49",
+      "group": "Digital",
+      "weight": 0.0364,
+      "label": "Digital behaviour indicator 6"
+    },
+    {
+      "id": "q50",
+      "group": "Digital",
+      "weight": 0.058,
+      "label": "Digital behaviour indicator 7"
+    },
+    {
+      "id": "q51",
+      "group": "Green",
+      "weight": 0.0356,
+      "label": "Green behaviour indicator 1"
+    },
+    {
+      "id": "q52",
+      "group": "Green",
+      "weight": 0.0301,
+      "label": "Green behaviour indicator 2"
+    },
+    {
+      "id": "q53",
+      "group": "Green",
+      "weight": 0.0231,
+      "label": "Green behaviour indicator 3"
+    },
+    {
+      "id": "q54",
+      "group": "Green",
+      "weight": 0.0234,
+      "label": "Green behaviour indicator 4"
+    },
+    {
+      "id": "q55",
+      "group": "Green",
+      "weight": 0.0372,
+      "label": "Green behaviour indicator 5"
+    },
+    {
+      "id": "q56",
+      "group": "Green",
+      "weight": 0.0348,
+      "label": "Green behaviour indicator 6"
+    },
+    {
+      "id": "q57",
+      "group": "Green",
+      "weight": 0.0267,
+      "label": "Green behaviour indicator 7"
+    },
+    {
+      "id": "q58",
+      "group": "Green",
+      "weight": 0.0292,
+      "label": "Green behaviour indicator 8"
+    },
+    {
+      "id": "q59",
+      "group": "Green",
+      "weight": 0.0372,
+      "label": "Green behaviour indicator 9"
+    }
+  ],
+  "scenarios": {
+    "baseline": {
+      "label": "Baseline",
+      "mg_annual": 0.0308,
+      "ng_annual": 0.0066,
+      "coefficients": {
+        "q35": 1.0,
+        "q38": 1.0,
+        "q45": 1.0,
+        "q47": 1.0,
+        "q48": 1.0,
+        "q49": 1.0,
+        "q50": 1.0,
+        "q51": 1.0,
+        "q52": 1.0,
+        "q53": 1.0,
+        "q54": 1.0,
+        "q55": 1.0,
+        "q56": 1.0,
+        "q57": 1.0,
+        "q58": 1.0,
+        "q59": 1.0
+      }
+    },
+    "leapfrog": {
+      "label": "Leapfrog",
+      "mg_annual": 0.0423,
+      "ng_annual": 0.0066,
+      "coefficients": {
+        "q35": 1.19,
+        "q38": 1.3,
+        "q45": 1.28,
+        "q47": 1.23,
+        "q48": 1.22,
+        "q49": 1.2,
+        "q50": 1.33,
+        "q51": 1.23,
+        "q52": 1.23,
+        "q53": 1.18,
+        "q54": 1.18,
+        "q55": 1.2,
+        "q56": 1.17,
+        "q57": 1.22,
+        "q58": 1.2,
+        "q59": 1.18
+      }
+    },
+    "dark-horse": {
+      "label": "Dark Horse",
+      "mg_annual": 0.0368,
+      "ng_annual": 0.0066,
+      "coefficients": {
+        "q35": 1.1,
+        "q38": 1.19,
+        "q45": 1.15,
+        "q47": 1.11,
+        "q48": 1.13,
+        "q49": 1.12,
+        "q50": 1.18,
+        "q51": 1.11,
+        "q52": 1.12,
+        "q53": 1.08,
+        "q54": 1.08,
+        "q55": 1.1,
+        "q56": 1.1,
+        "q57": 1.1,
+        "q58": 1.09,
+        "q59": 1.08
+      }
+    },
+    "snailpace": {
+      "label": "Snailpace",
+      "mg_annual": 0.0248,
+      "ng_annual": 0.0066,
+      "coefficients": {
+        "q35": 1.02,
+        "q38": 1.03,
+        "q45": 1.02,
+        "q47": 1.01,
+        "q48": 1.01,
+        "q49": 1.0,
+        "q50": 1.03,
+        "q51": 1.02,
+        "q52": 1.02,
+        "q53": 1.01,
+        "q54": 1.01,
+        "q55": 1.02,
+        "q56": 1.01,
+        "q57": 1.01,
+        "q58": 1.02,
+        "q59": 1.02
+      }
+    },
+    "lions-den": {
+      "label": "Lion's Den",
+      "mg_annual": 0.0193,
+      "ng_annual": 0.0066,
+      "coefficients": {
+        "q35": 1.0,
+        "q38": 1.01,
+        "q45": 1.01,
+        "q47": 1.0,
+        "q48": 1.01,
+        "q49": 1.0,
+        "q50": 1.02,
+        "q51": 1.01,
+        "q52": 1.02,
+        "q53": 1.0,
+        "q54": 1.01,
+        "q55": 1.02,
+        "q56": 1.0,
+        "q57": 1.01,
+        "q58": 1.01,
+        "q59": 1.01
+      }
+    }
+  },
+  "defaults": {
+    "scenario": "baseline",
+    "seed": 66,
+    "agent_count": 600,
+    "duration_months": 120,
+    "policy_strength_dt": 6.0,
+    "policy_strength_gt": 6.0,
+    "exit_threshold": 0.8,
+    "internal_relocation_prob": 0.5,
+    "relocation_congestion_k": 10.0,
+    "remote_work_strength": 1.0,
+    "place_attachment_scale": 1.0,
+    "scenario_impact_scale": 1.0,
+    "preference_satisfaction_scale": 1.0,
+    "population_growth_scale": 1.0,
+    "micro_noise_scale": 0.01,
+    "heterogeneity_noise_scale": 0.01,
+    "macro_noise_scale": 0.01,
+    "friend_strength": 1.0,
+    "neighbor_strength": 1.0,
+    "friend_degree": 3,
+    "neighbor_degree": 3
+  },
+  "public_adaptations": [
+    "One selected macro scenario is run at a time; No Transition (NT) and Twin Transition (TT) remain parallel tracks.",
+    "The initial population is generated from aggregate synthetic archetypes.",
+    "Exit and destination inputs are clustered and smoothed public profiles.",
+    "Archetype summaries and public calibration parameters receive small deterministic perturbations and coarser rounding.",
+    "Small-population counts use stochastic rounding to retain annual rates.",
+    "Only aggregate region-month results can be downloaded.",
+    "Synthetic-agent point display is not exposed in the public interface.",
+    "The original NetLogo file, original identifiers, raw rows, and agent snapshots are excluded."
+  ],
+  "region_metadata": [
+    {
+      "id": 23,
+      "name": "Thessaloniki",
+      "population_weight": 0.17784829,
+      "population_reference": 319000,
+      "nearby_ids": [
+        32,
+        29,
+        24
+      ]
+    },
+    {
+      "id": 24,
+      "name": "Abelokipi - Menemeni",
+      "population_weight": 0.02794955,
+      "population_reference": 50100,
+      "nearby_ids": [
+        30,
+        33,
+        23
+      ]
+    },
+    {
+      "id": 25,
+      "name": "Volvi",
+      "population_weight": 0.01101337,
+      "population_reference": 19800,
+      "nearby_ids": [
+        51,
+        31,
+        57
+      ]
+    },
+    {
+      "id": 26,
+      "name": "Delta",
+      "population_weight": 0.02504862,
+      "population_reference": 44900,
+      "nearby_ids": [
+        24,
+        30,
+        35
+      ]
+    },
+    {
+      "id": 27,
+      "name": "Thermaikos",
+      "population_weight": 0.02539702,
+      "population_reference": 45600,
+      "nearby_ids": [
+        28,
+        29,
+        23
+      ]
+    },
+    {
+      "id": 28,
+      "name": "Thermi",
+      "population_weight": 0.03085939,
+      "population_reference": 55400,
+      "nearby_ids": [
+        34,
+        29,
+        27
+      ]
+    },
+    {
+      "id": 29,
+      "name": "Kalamaria",
+      "population_weight": 0.05142284,
+      "population_reference": 92200,
+      "nearby_ids": [
+        23,
+        32,
+        34
+      ]
+    },
+    {
+      "id": 30,
+      "name": "Kordelio - Evosmos",
+      "population_weight": 0.05872867,
+      "population_reference": 105400,
+      "nearby_ids": [
+        24,
+        33,
+        32
+      ]
+    },
+    {
+      "id": 31,
+      "name": "Lagadas",
+      "population_weight": 0.02063759,
+      "population_reference": 37000,
+      "nearby_ids": [
+        34,
+        33,
+        32
+      ]
+    },
+    {
+      "id": 32,
+      "name": "Neapoli - Sykees",
+      "population_weight": 0.04509031,
+      "population_reference": 80900,
+      "nearby_ids": [
+        23,
+        33,
+        24
+      ]
+    },
+    {
+      "id": 33,
+      "name": "Pavlos Melas",
+      "population_weight": 0.05585227,
+      "population_reference": 100200,
+      "nearby_ids": [
+        32,
+        30,
+        24
+      ]
+    },
+    {
+      "id": 34,
+      "name": "Pylea - Chortiatis",
+      "population_weight": 0.04035039,
+      "population_reference": 72400,
+      "nearby_ids": [
+        32,
+        23,
+        29
+      ]
+    },
+    {
+      "id": 35,
+      "name": "Chalkidona",
+      "population_weight": 0.01673885,
+      "population_reference": 30000,
+      "nearby_ids": [
+        26,
+        36,
+        30
+      ]
+    },
+    {
+      "id": 36,
+      "name": "Oreokastro",
+      "population_weight": 0.02229821,
+      "population_reference": 40000,
+      "nearby_ids": [
+        30,
+        33,
+        24
+      ]
+    },
+    {
+      "id": 37,
+      "name": "Veria",
+      "population_weight": 0.03492704,
+      "population_reference": 62700,
+      "nearby_ids": [
+        39,
+        38,
+        46
+      ]
+    },
+    {
+      "id": 38,
+      "name": "Alexandria",
+      "population_weight": 0.02134498,
+      "population_reference": 38300,
+      "nearby_ids": [
+        48,
+        35,
+        44
+      ]
+    },
+    {
+      "id": 39,
+      "name": "Iroiki Poli Naoussas",
+      "population_weight": 0.01675334,
+      "population_reference": 30100,
+      "nearby_ids": [
+        37,
+        42,
+        45
+      ]
+    },
+    {
+      "id": 40,
+      "name": "Kilkis",
+      "population_weight": 0.02525599,
+      "population_reference": 45300,
+      "nearby_ids": [
+        36,
+        41,
+        53
+      ]
+    },
+    {
+      "id": 41,
+      "name": "Peonia",
+      "population_weight": 0.01402968,
+      "population_reference": 25200,
+      "nearby_ids": [
+        44,
+        35,
+        40
+      ]
+    },
+    {
+      "id": 42,
+      "name": "Edessa",
+      "population_weight": 0.01471924,
+      "population_reference": 26400,
+      "nearby_ids": [
+        45,
+        39,
+        43
+      ]
+    },
+    {
+      "id": 43,
+      "name": "Almopia",
+      "population_weight": 0.01391819,
+      "population_reference": 25000,
+      "nearby_ids": [
+        45,
+        42,
+        44
+      ]
+    },
+    {
+      "id": 44,
+      "name": "Pella",
+      "population_weight": 0.03179645,
+      "population_reference": 57000,
+      "nearby_ids": [
+        45,
+        38,
+        35
+      ]
+    },
+    {
+      "id": 45,
+      "name": "Skydra",
+      "population_weight": 0.01021455,
+      "population_reference": 18300,
+      "nearby_ids": [
+        44,
+        42,
+        39
+      ]
+    },
+    {
+      "id": 46,
+      "name": "Katerini",
+      "population_weight": 0.04620854,
+      "population_reference": 82900,
+      "nearby_ids": [
+        47,
+        48,
+        37
+      ]
+    },
+    {
+      "id": 47,
+      "name": "Dion - Olympos",
+      "population_weight": 0.01335351,
+      "population_reference": 24000,
+      "nearby_ids": [
+        46,
+        48,
+        37
+      ]
+    },
+    {
+      "id": 48,
+      "name": "Pydna - Kolindros",
+      "population_weight": 0.00698864,
+      "population_reference": 12500,
+      "nearby_ids": [
+        38,
+        46,
+        26
+      ]
+    },
+    {
+      "id": 49,
+      "name": "Serres",
+      "population_weight": 0.041254,
+      "population_reference": 74000,
+      "nearby_ids": [
+        52,
+        53,
+        51
+      ]
+    },
+    {
+      "id": 50,
+      "name": "Amfipoli",
+      "population_weight": 0.00399518,
+      "population_reference": 7200,
+      "nearby_ids": [
+        54,
+        52,
+        51
+      ]
+    },
+    {
+      "id": 51,
+      "name": "Vissaltia",
+      "population_weight": 0.00893857,
+      "population_reference": 16000,
+      "nearby_ids": [
+        52,
+        25,
+        49
+      ]
+    },
+    {
+      "id": 52,
+      "name": "Emmanuel Pappas",
+      "population_weight": 0.0064574,
+      "population_reference": 11600,
+      "nearby_ids": [
+        49,
+        54,
+        51
+      ]
+    },
+    {
+      "id": 53,
+      "name": "Iraklia",
+      "population_weight": 0.00875796,
+      "population_reference": 15700,
+      "nearby_ids": [
+        55,
+        49,
+        52
+      ]
+    },
+    {
+      "id": 54,
+      "name": "Nea Zichni",
+      "population_weight": 0.00460837,
+      "population_reference": 8300,
+      "nearby_ids": [
+        50,
+        52,
+        51
+      ]
+    },
+    {
+      "id": 55,
+      "name": "Sintiki",
+      "population_weight": 0.01033663,
+      "population_reference": 18500,
+      "nearby_ids": [
+        53,
+        49,
+        40
+      ]
+    },
+    {
+      "id": 56,
+      "name": "Polygyros",
+      "population_weight": 0.01190249,
+      "population_reference": 21400,
+      "nearby_ids": [
+        59,
+        57,
+        28
+      ]
+    },
+    {
+      "id": 57,
+      "name": "Aristotelis",
+      "population_weight": 0.00945588,
+      "population_reference": 17000,
+      "nearby_ids": [
+        56,
+        25,
+        60
+      ]
+    },
+    {
+      "id": 58,
+      "name": "Kassandra",
+      "population_weight": 0.00939846,
+      "population_reference": 16900,
+      "nearby_ids": [
+        60,
+        59,
+        56
+      ]
+    },
+    {
+      "id": 59,
+      "name": "Nea Propontida",
+      "population_weight": 0.01941568,
+      "population_reference": 34800,
+      "nearby_ids": [
+        56,
+        28,
+        27
+      ]
+    },
+    {
+      "id": 60,
+      "name": "Sithonia",
+      "population_weight": 0.00673389,
+      "population_reference": 12100,
+      "nearby_ids": [
+        58,
+        57,
+        56
+      ]
+    }
+  ],
+  "tracks": {
+    "NT": {
+      "label": "No Transition (NT)",
+      "description": "Reference track without digital or green transition policy effects."
+    },
+    "TT": {
+      "label": "Twin Transition (TT)",
+      "description": "Track combining digital and green transition policy effects."
+    }
+  }
+}
