@@ -24,7 +24,7 @@
     p.style.cssText = 'font-size:11px;line-height:1.5;color:#667085;margin:6px 0 0';
     p.textContent = note || 'Geographic context only; research layers stay visible.';
     section.append(label, p);
-    const host = document.querySelector('.sidebar-inner, #sidebar, .sidebar');
+    const host = document.querySelector('.sidebar-inner') || document.querySelector('#sidebar, .sidebar');
     if (!host) throw new Error('Basemap sidebar not found');
     const header = host.querySelector(':scope > header');
     if (header) header.after(section); else host.prepend(section);
